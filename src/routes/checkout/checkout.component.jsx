@@ -5,27 +5,48 @@ import { CartContext } from "../../contexts/cart.context";
 import "./checkout.styles.scss";
 
 const Checkout = () => {
-  const { cartItems, addItemToCart } = useContext(CartContext);
+  const { cartItems, addItemToCart, removeItemFromCart } =
+    useContext(CartContext);
 
   return (
-    <div>
-      <h1>Checkout</h1>
+    <div className='checkout-container'>
+      <div className='checkout-header'>
+        <div className='header-block'>
+          <span>Product</span>
+        </div>
 
-      <div>
-        {cartItems.map((cartItem) => {
-          const { id, name, quantity } = cartItem;
-          return (
-            <div key={id}>
-              <h2>{name}</h2>
-              <p>{quantity}</p>
-              <span>decrement</span>
-              <br />
-              <span onClick={() => addItemToCart(cartItem)}> increment</span>
-              <br />
-            </div>
-          );
-        })}
+        <div className='header-block'>
+          <span>Description</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Quantity</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Price</span>
+        </div>
+
+        <div className='header-block'>
+          <span>Remove</span>
+        </div>
       </div>
+
+      {cartItems.map((cartItem) => {
+        const { id, name, quantity } = cartItem;
+        return (
+          <div key={id}>
+            <h2>{name}</h2>
+            <p>{quantity}</p>
+            <span onClick={() => removeItemFromCart(cartItem)}>decrement</span>
+            <br />
+            <span onClick={() => addItemToCart(cartItem)}> increment</span>
+            <br />
+          </div>
+        );
+      })}
+
+      <span className='total'>Total: 0</span>
     </div>
   );
 };
